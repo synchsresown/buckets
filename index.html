@@ -61,14 +61,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     img.dataset.x = Math.random() * (window.innerWidth - 150);
     img.dataset.y = Math.random() * (window.innerHeight - 150);
-    img.dataset.xSpeed = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * 2);
-    img.dataset.ySpeed = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * 2);
+    img.dataset.xSpeed = (Math.random() > 0.5 ? 1 : -1) * (6 + Math.random() * 4); // much faster
+    img.dataset.ySpeed = (Math.random() > 0.5 ? 1 : -1) * (6 + Math.random() * 4); // much faster
   });
 
   function animate() {
-    // Make trails longer by using more transparent white
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+    // White slightly transparent fill plus slight blur for comet trail
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.save();
+    ctx.filter = 'blur(1px)'; // add blur for smooth trail effect
 
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
@@ -103,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
       ctx.drawImage(img, x, y, imgWidth, imgHeight);
     });
 
+    ctx.restore();
     requestAnimationFrame(animate);
   }
 
