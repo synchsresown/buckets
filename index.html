@@ -14,14 +14,35 @@
       background: white;
       margin: 0;
       overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    .content {
+      position: relative;
+      z-index: 1001;
+      text-align: center;
+      padding: 60px 20px;
+      margin: 100px auto;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.5); /* semi-transparent background */
+      backdrop-filter: blur(8px); /* frosted glass effect */
+      border-radius: 20px; /* rounded corners */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* soft outer shadow */
+      color: #111;
+    }
+    h1, p {
+      margin: 0;
+      padding: 10px;
     }
   </style>
 </head>
 
 <body>
+<div class="content">
+  <p>If I ever see a hat on a bed in this house, man, like you'll never see me again. I'm gone.</p>
+</div>
 
 <div class="container">
- <img src="Images/buckets.png" alt="buckets logo">
+   <img src="Images/buckets.png" alt="buckets logo">
 </div>
 
 <script>
@@ -32,7 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
     el.style.color = blueShade;
   });
 
-  // Setup canvas for ghost trails
   const canvas = document.createElement('canvas');
   canvas.style.position = 'fixed';
   canvas.style.top = 0;
@@ -51,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
 
-  // DVD bounce logic for multiple images
   const dvdImgs = document.querySelectorAll('img');
   dvdImgs.forEach(img => {
     img.style.position = 'fixed';
@@ -61,17 +80,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     img.dataset.x = Math.random() * (window.innerWidth - 150);
     img.dataset.y = Math.random() * (window.innerHeight - 150);
-    img.dataset.xSpeed = (Math.random() > 0.5 ? 1 : -1) * (3 + Math.random() * 2); // slowed down
-    img.dataset.ySpeed = (Math.random() > 0.5 ? 1 : -1) * (3 + Math.random() * 2); // slowed down
+    img.dataset.xSpeed = (Math.random() > 0.5 ? 1 : -1) * (3 + Math.random() * 2);
+    img.dataset.ySpeed = (Math.random() > 0.5 ? 1 : -1) * (3 + Math.random() * 2);
   });
 
   function animate() {
-    // Instead of harsh wiping, softly fade out trails over time
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.015)'; // even softer fade
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.015)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.save();
-    ctx.filter = 'blur(1.5px)'; // a little extra blur for dreamy effect
+    ctx.filter = 'blur(1.5px)';
 
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
@@ -102,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function() {
       img.style.left = x + 'px';
       img.style.top = y + 'px';
 
-      // Draw ghost image
       ctx.drawImage(img, x, y, imgWidth, imgHeight);
     });
 
