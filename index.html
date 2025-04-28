@@ -21,7 +21,7 @@
 <body>
 
 <div class="container">
-  <img src="Images/buckets.png" alt="buckets logo">
+ <img src="Images/buckets.png" alt="buckets logo">
 </div>
 
 <script>
@@ -61,17 +61,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     img.dataset.x = Math.random() * (window.innerWidth - 150);
     img.dataset.y = Math.random() * (window.innerHeight - 150);
-    img.dataset.xSpeed = (Math.random() > 0.5 ? 1 : -1) * (6 + Math.random() * 4); // much faster
-    img.dataset.ySpeed = (Math.random() > 0.5 ? 1 : -1) * (6 + Math.random() * 4); // much faster
+    img.dataset.xSpeed = (Math.random() > 0.5 ? 1 : -1) * (3 + Math.random() * 2); // slowed down
+    img.dataset.ySpeed = (Math.random() > 0.5 ? 1 : -1) * (3 + Math.random() * 2); // slowed down
   });
 
   function animate() {
-    // White slightly transparent fill plus slight blur for comet trail
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+    // Instead of harsh wiping, softly fade out trails over time
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.015)'; // even softer fade
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.save();
-    ctx.filter = 'blur(1px)'; // add blur for smooth trail effect
+    ctx.filter = 'blur(1.5px)'; // a little extra blur for dreamy effect
 
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
