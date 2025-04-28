@@ -2,18 +2,26 @@
 <html lang="en">
 
 <head>
-  <meta name="description" content="Buckets" />
+  <meta name="description" content="Buckets"/>
   <meta charset="utf-8">
   <title>Buckets</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="">
   <link rel="stylesheet" href="css/style.css">
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <style>
+    body {
+      background: white;
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
 </head>
 
-<body style="background: white; margin: 0; overflow: hidden;">
+<body>
 
 <div class="container">
+  <img src="Images/buckets.png" alt="buckets logo">
 </div>
 
 <script>
@@ -58,8 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   function animate() {
-    // White background with transparent overlay for trails
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+    // Make trails longer by using more transparent white
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const screenWidth = window.innerWidth;
@@ -101,6 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
   animate();
 });
 </script>
-</body>
 
+</body>
 </html>
