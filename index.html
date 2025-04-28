@@ -1,1 +1,126 @@
-<img src="Images/buckets.png">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="description" content="Buckets" />
+  <meta charset="utf-8">
+  <title>Buckets</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<body>
+  
+<div class="container">
+  
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Existing color randomization for text
+  const elements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, a');
+  elements.forEach(el => {
+    const blueShade = `rgb(${Math.floor(Math.random()*100)}, ${Math.floor(Math.random()*100)}, ${150 + Math.floor(Math.random()*106)})`;
+    el.style.color = blueShade;
+  });
+
+  // Setup canvas for ghost trails
+  const canvas = document.createElement('canvas');
+  canvas.style.position = 'fixed';
+  canvas.style.top = 0;
+  canvas.style.left = 0;
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = 500; // behind images
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  // DVD bounce logic for multiple images
+  const dvdImgs = document.querySelectorAll('img');
+  dvdImgs.forEach(img => {
+    img.style.position = 'fixed';
+    img.style.width = '150px'; // adjust if needed
+    img.style.height = 'auto';
+    img.style.zIndex = 1000;
+
+    img.dataset.x = Math.random() * (window.innerWidth - 150);
+    img.dataset.y = Math.random() * (window.innerHeight - 150);
+    img.dataset.xSpeed = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * 2);
+    img.dataset.ySpeed = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * 2);
+    img.dataset.color = randomColor();
+    img.style.filter = `drop-shadow(0 0 10px ${img.dataset.color})`;
+  });
+
+  function randomColor() {
+    const r = Math.floor(Math.random() * 156) + 100;
+    const g = Math.floor(Math.random() * 156) + 100;
+    const b = Math.floor(Math.random() * 156) + 100;
+    return `rgb(${r},${g},${b})`;
+  }
+
+  function animate() {
+    ctx.fillStyle = 'rgba(253, 246, 227, 0.2)'; // semi-transparent background to make trails
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    dvdImgs.forEach(img => {
+      let x = parseFloat(img.dataset.x);
+      let y = parseFloat(img.dataset.y);
+      let xSpeed = parseFloat(img.dataset.xSpeed);
+      let ySpeed = parseFloat(img.dataset.ySpeed);
+      const imgWidth = img.offsetWidth;
+      const imgHeight = img.offsetHeight;
+
+      x += xSpeed;
+      y += ySpeed;
+
+      let bounced = false;
+
+      if (x + imgWidth >= screenWidth || x <= 0) {
+        xSpeed *= -1;
+        bounced = true;
+      }
+      if (y + imgHeight >= screenHeight || y <= 0) {
+        ySpeed *= -1;
+        bounced = true;
+      }
+
+      if (bounced) {
+        img.dataset.color = randomColor();
+        img.style.filter = `drop-shadow(0 0 10px ${img.dataset.color})`;
+      }
+
+      img.dataset.x = x;
+      img.dataset.y = y;
+      img.dataset.xSpeed = xSpeed;
+      img.dataset.ySpeed = ySpeed;
+
+      img.style.left = x + 'px';
+      img.style.top = y + 'px';
+
+      // Draw ghost image
+      ctx.drawImage(img, x, y, imgWidth, imgHeight);
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+});
+</script>
+
+
+</body>
+</html>
