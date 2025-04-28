@@ -11,15 +11,13 @@
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
-<body>
-  
+<body style="background: white; margin: 0; overflow: hidden;">
+
 <div class="container">
-  <img src="Images/buckets.png">
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Existing color randomization for text
   const elements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, a');
   elements.forEach(el => {
     const blueShade = `rgb(${Math.floor(Math.random()*100)}, ${Math.floor(Math.random()*100)}, ${150 + Math.floor(Math.random()*106)})`;
@@ -34,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
   canvas.style.width = '100%';
   canvas.style.height = '100%';
   canvas.style.pointerEvents = 'none';
-  canvas.style.zIndex = 500; // behind images
+  canvas.style.zIndex = 500;
   document.body.appendChild(canvas);
   const ctx = canvas.getContext('2d');
 
@@ -49,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const dvdImgs = document.querySelectorAll('img');
   dvdImgs.forEach(img => {
     img.style.position = 'fixed';
-    img.style.width = '150px'; // adjust if needed
+    img.style.width = '150px';
     img.style.height = 'auto';
     img.style.zIndex = 1000;
 
@@ -57,19 +55,11 @@ document.addEventListener('DOMContentLoaded', function() {
     img.dataset.y = Math.random() * (window.innerHeight - 150);
     img.dataset.xSpeed = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * 2);
     img.dataset.ySpeed = (Math.random() > 0.5 ? 1 : -1) * (2 + Math.random() * 2);
-    img.dataset.color = randomColor();
-    img.style.filter = `drop-shadow(0 0 10px ${img.dataset.color})`;
   });
 
-  function randomColor() {
-    const r = Math.floor(Math.random() * 156) + 100;
-    const g = Math.floor(Math.random() * 156) + 100;
-    const b = Math.floor(Math.random() * 156) + 100;
-    return `rgb(${r},${g},${b})`;
-  }
-
   function animate() {
-    ctx.fillStyle = 'rgba(253, 246, 227, 0.2)'; // semi-transparent background to make trails
+    // White background with transparent overlay for trails
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const screenWidth = window.innerWidth;
@@ -86,20 +76,11 @@ document.addEventListener('DOMContentLoaded', function() {
       x += xSpeed;
       y += ySpeed;
 
-      let bounced = false;
-
       if (x + imgWidth >= screenWidth || x <= 0) {
         xSpeed *= -1;
-        bounced = true;
       }
       if (y + imgHeight >= screenHeight || y <= 0) {
         ySpeed *= -1;
-        bounced = true;
-      }
-
-      if (bounced) {
-        img.dataset.color = randomColor();
-        img.style.filter = `drop-shadow(0 0 10px ${img.dataset.color})`;
       }
 
       img.dataset.x = x;
@@ -120,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function() {
   animate();
 });
 </script>
-
-
 </body>
+
 </html>
