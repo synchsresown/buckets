@@ -8,10 +8,11 @@
     html, body {
       margin: 0;
       padding: 0;
-      font-size: 5vw; 
+      font-size: clamp(1rem, 5vw, 3rem);
       height: auto;
       width: 100%;
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
 
     body {
@@ -21,9 +22,15 @@
       justify-content: flex-start;
     }
 
-    .icon, .logo {
+    .icon {
       margin: 100px 0;
-      font-size: 50;
+      font-size: 3em; /* 3x base font size */
+      text-align: center;
+    }
+
+    .logo {
+      margin: 100px 0;
+      font-size: 50px;
       text-align: center;
     }
 
@@ -32,48 +39,12 @@
       height: auto;
     }
 
-    /* overlay */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 9999;
-      pointer-events: none;
-    }
-
-    .overlay-text {
-      position: absolute;
-      top: 10%;
-      left: 10%;
-      color: white;
-      font-size: 5vw;
-      font-family: sans-serif;
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 20px;
-      border-radius: 15px;
-    }
-
-    .overlay img {
-      position: absolute;
-      top: 2%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60vw;
-      max-width: 800px;
-      height: auto;
-      opacity: 1.0;
-      filter: drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.9));
-    }
-
     @media (max-width: 480px) {
-      .overlay-text {
+      .logo {
         font-size: 7vw;
-        padding: 5vw;
       }
 
-      .overlay img {
+      .logo img {
         width: 70vw;
       }
     }
@@ -81,26 +52,20 @@
 </head>
 <body>
 
-  <!-- scrollable content -->
+  <!-- Scrollable content -->
   <div class="icon">&#x1F3A9;</div>
 
   <div class="logo">
-    <img src="Images/cd.png" alt="Buckets Logo">
+    <img src="Images/cd.png" alt="Buckets logo graphic">
   </div>
   
   <div class="icon">&#x267b;</div>
   
   <div class="logo">
-    <img src="Images/cd.png" alt="Buckets Logo">
+    <img src="Images/cd.png" alt="Buckets logo graphic">
   </div>
   
   <div class="icon">&#x1FAA3;</div>
-
-  <!-- overlay -->
-  <div class="overlay">
-    <!-- <div class="overlay-text"></div> -->
-    <img src="Images/buckets3D.png" alt="Buckets Logo">
-  </div>
 
 </body>
 </html>
